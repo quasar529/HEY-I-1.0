@@ -11,3 +11,6 @@ streamlit==1.17.0
 scikit-learn
 uvicorn==0.20.0
 wincertstore==0.2
+streamlit_webrtc
+av
+aiortc
