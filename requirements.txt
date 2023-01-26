@@ -8,5 +8,6 @@ pylint==2.4.4
 PySocks==1.7.1
 rope==0.16.0
 streamlit==1.17.0
+scikit-learn
 uvicorn==0.20.0
 wincertstore==0.2
