@@ -1,3 +1,4 @@
+opencv-python-headless
 deepface==0.0.75
 fastapi==0.89.1
 lightgbm==3.3.4
