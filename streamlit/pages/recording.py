@@ -70,9 +70,10 @@ webrtc_streamer(
 )
 if in_file.exists():
     with in_file.open("rb") as f:
-        st.download_button(
-            "Download the recorded video without video filter", f, "input.flv"
-        )
+        # st.download_button(
+        #     "Download the recorded video without video filter", f, "input.flv"
+        # )
+        f.write(f"{RECORD_DIR}/input.flv")
 # fourcc = cv2.VideoWriter_fourcc(*"vp80")
 video_dir = f"{RECORD_DIR}/input.flv"
 st.session_state.video_dir = video_dir
