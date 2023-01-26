@@ -7,6 +7,9 @@ from pytz import timezone
 from datetime import datetime
 import streamlit as st
 
+import uuid
+from pathlib import Path
+from ..record import video_frame_callback, app
 
 # st.session_state.start_recording = False
 # st.session_state.end_recording = False
@@ -33,6 +36,7 @@ if start_recording:
     st.markdown("**질문** : 1분 자기 소개를 해주세요")
     stframe = st.empty()
     with st.spinner("Get Ready for Camera"):
+        """
         # video = cv2.VideoCapture('/opt/ml/TEST_VIDEO/ka.mp4')
         video = cv2.VideoCapture(0)
         # Load Web Camera
@@ -55,44 +59,50 @@ if start_recording:
             os.makedirs("./db")
         start_time = datetime.now(timezone("Asia/Seoul")).strftime("_%y%m%d_%H%M%S")
         video_dir = f"./db/output{start_time}.webm"
+        """
+        RECORD_DIR = Path("./records")
+        RECORD_DIR.mkdir(exist_ok=True)
+        app()
+        # fourcc = cv2.VideoWriter_fourcc(*"vp80")
+        video_dir = f"{RECORD_DIR}/input.flv"
         st.session_state.video_dir = video_dir
-        out = cv2.VideoWriter(video_dir, fourcc, fps / 2, (w, h))
-        if not (out.isOpened()):
-            print("File isn't opened!!")
-            video.release()
-            sys.exit()
+        # out = cv2.VideoWriter(video_dir, fourcc, fps / 2, (7, h))
+        # if not (out.isOpened()):
+        #     print("File isn't opened!!")
+        #     video.release()
+        #     sys.exit()
 
     end_recording = st.sidebar.button("End Recording")
 
     # Load frame and Save it
-    start = time.time()
-    timer = st.sidebar.empty()
-    num_frames = 0
-    while video.isOpened() and start_recording and not end_recording:
-        ret, frame = video.read()
+    # start = time.time()
+    # timer = st.sidebar.empty()
+    # num_frames = 0
+    # while video.isOpened() and start_recording and not end_recording:
+    #     ret, frame = video.read()
 
-        sec = round(time.time() - start)
-        timer.metric("Countdown", f"{sec//60:02d}:{sec%60:02d}")
+    #     sec = round(time.time() - start)
+    #     timer.metric("Countdown", f"{sec//60:02d}:{sec%60:02d}")
 
-        if ret and sec // 60 < number:
-            num_frames += 1
+    #     if ret and sec // 60 < number:
+    #         num_frames += 1
 
-            stframe.image(frame, channels="BGR", use_column_width=True)
+    #         stframe.image(frame, channels="BGR", use_column_width=True)
 
-            if start_recording:
-                out.write(frame)
+    #         if start_recording:
+    #             out.write(frame)
 
-            cv2.waitKey(1)
+    #         cv2.waitKey(1)
 
-        else:
-            print("ret is false")
-            break
-    print("num frames:", num_frames)
-    print()
+    #     else:
+    #         print("ret is false")
+    #         break
+    # print("num frames:", num_frames)
+    # print()
 
-    video.release()
-    out.release()
-    cv2.destroyAllWindows()
+    # video.release()
+    # out.release()
+    # cv2.destroyAllWindows()
 
 # print(st.session_state)
 

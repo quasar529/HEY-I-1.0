@@ -11,9 +11,6 @@ from streamlit_webrtc import WebRtcMode, webrtc_streamer
 def video_frame_callback(frame: av.VideoFrame) -> av.VideoFrame:
     img = frame.to_ndarray(format="bgr24")
 
-    # perform edge detection
-    img = cv2.cvtColor(cv2.Canny(img, 100, 200), cv2.COLOR_GRAY2BGR)
-
     return av.VideoFrame.from_ndarray(img, format="bgr24")
 
 
@@ -26,15 +23,15 @@ def app():
         st.session_state["prefix"] = str(uuid.uuid4())
     prefix = st.session_state["prefix"]
     in_file = RECORD_DIR / f"{prefix}_input.flv"
-    out_file = RECORD_DIR / f"{prefix}_output.flv"
+    # out_file = RECORD_DIR / f"{prefix}_output.flv"
 
     def in_recorder_factory() -> MediaRecorder:
         return MediaRecorder(
             str(in_file), format="flv"
         )  # HLS does not work. See https://github.com/aiortc/aiortc/issues/331
 
-    def out_recorder_factory() -> MediaRecorder:
-        return MediaRecorder(str(out_file), format="flv")
+    # def out_recorder_factory() -> MediaRecorder:
+    #     return MediaRecorder(str(out_file), format="flv")
 
     webrtc_streamer(
         key="record",
@@ -46,7 +43,7 @@ def app():
         },
         video_frame_callback=video_frame_callback,
         in_recorder_factory=in_recorder_factory,
-        out_recorder_factory=out_recorder_factory,
+        # out_recorder_factory=out_recorder_factory,
     )
 
     if in_file.exists():
@@ -54,11 +51,11 @@ def app():
             st.download_button(
                 "Download the recorded video without video filter", f, "input.flv"
             )
-    if out_file.exists():
-        with out_file.open("rb") as f:
-            st.download_button(
-                "Download the recorded video with video filter", f, "output.flv"
-            )
+    # if out_file.exists():
+    #     with out_file.open("rb") as f:
+    #         st.download_button(
+    #             "Download the recorded video with video filter", f, "output.flv"
+    #         )
 
 
 if __name__ == "__main__":
