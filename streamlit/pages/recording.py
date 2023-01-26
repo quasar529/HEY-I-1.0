@@ -40,30 +40,30 @@ if start_recording:
     st.markdown("**질문** : 1분 자기 소개를 해주세요")
     stframe = st.empty()
     with st.spinner("Get Ready for Camera"):
-        """
-        # video = cv2.VideoCapture('/opt/ml/TEST_VIDEO/ka.mp4')
-        video = cv2.VideoCapture(0)
-        # Load Web Camera
-        if not (video.isOpened()):
-            print("File isn't opened!!")
+        # """
+        # # video = cv2.VideoCapture('/opt/ml/TEST_VIDEO/ka.mp4')
+        # video = cv2.VideoCapture(0)
+        # # Load Web Camera
+        # if not (video.isOpened()):
+        #     print("File isn't opened!!")
 
-        # Set Video File Property
-        w = round(video.get(cv2.CAP_PROP_FRAME_WIDTH))
-        h = round(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
-        framecount = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
-        # video.set(cv2.CAP_PROP_FPS, 10) # fps 설정
-        fps = video.get(cv2.CAP_PROP_FPS)
-        fourcc = cv2.VideoWriter_fourcc(*"vp80")
-        # delay = 6
-        print("fps:", fps)
-        print("framecount:", framecount)
+        # # Set Video File Property
+        # w = round(video.get(cv2.CAP_PROP_FRAME_WIDTH))
+        # h = round(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
+        # framecount = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+        # # video.set(cv2.CAP_PROP_FPS, 10) # fps 설정
+        # fps = video.get(cv2.CAP_PROP_FPS)
+        # fourcc = cv2.VideoWriter_fourcc(*"vp80")
+        # # delay = 6
+        # print("fps:", fps)
+        # print("framecount:", framecount)
 
-        # Save Video
-        if not os.path.exists("./db"):
-            os.makedirs("./db")
-        start_time = datetime.now(timezone("Asia/Seoul")).strftime("_%y%m%d_%H%M%S")
-        video_dir = f"./db/output{start_time}.webm"
-        """
+        # # Save Video
+        # if not os.path.exists("./db"):
+        #     os.makedirs("./db")
+        # start_time = datetime.now(timezone("Asia/Seoul")).strftime("_%y%m%d_%H%M%S")
+        # video_dir = f"./db/output{start_time}.webm"
+        # """
         RECORD_DIR = Path("./records")
         RECORD_DIR.mkdir(exist_ok=True)
 
