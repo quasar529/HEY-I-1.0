@@ -34,7 +34,7 @@ if start_recording:
     stframe = st.empty()
     with st.spinner("Get Ready for Camera"):
         # video = cv2.VideoCapture('/opt/ml/TEST_VIDEO/ka.mp4')
-        video = cv2.VideoCapture(1)
+        video = cv2.VideoCapture(0)
         # Load Web Camera
         if not (video.isOpened()):
             print("File isn't opened!!")
