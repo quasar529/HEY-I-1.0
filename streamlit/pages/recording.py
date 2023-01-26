@@ -73,10 +73,11 @@ webrtc_streamer(
 #         # st.download_button(
 #         #     "Download the recorded video without video filter", f, "input.flv"
 #         # )
-#         f.write(f"{RECORD_DIR}/input.flv")
+#         f.write(f"{RECORD_DIR}/input.flv") f.close()
 # fourcc = cv2.VideoWriter_fourcc(*"vp80")
-video_dir = f"{RECORD_DIR}/input.flv"
-st.session_state.video_dir = video_dir
+st.session_state.video_dir = in_file
+# video_dir = f"{RECORD_DIR}/input.flv"
+# st.session_state.video_dir = video_dir
 # if start_recording:
 #     # print(st.session_state.start_recording)
 #     st.markdown("**질문** : 1분 자기 소개를 해주세요")
