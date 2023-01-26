@@ -69,7 +69,7 @@ webrtc_streamer(
     # out_recorder_factory=out_recorder_factory,
 )
 if in_file.exists():
-    with in_file.open("rb") as f:
+    with in_file.open("w") as f:
         # st.download_button(
         #     "Download the recorded video without video filter", f, "input.flv"
         # )
