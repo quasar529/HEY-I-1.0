@@ -4,7 +4,8 @@ import os
 import requests
 import pandas as pd
 import time
-
+from datetime import datetime
+from pytz import timezone
 
 BACKEND_FACE = "http://127.0.0.1:8000/face_emotion"
 BACKEND_POSE_SHOULDER = "http://127.0.0.1:8000/shoulder_pose_estimation"
@@ -12,7 +13,7 @@ BACKEND_POSE_HAND = "http://127.0.0.1:8000/hand_pose_estimation"
 BACKEND_EYE = "http://127.0.0.1:8000/eye_tracking"
 st.set_page_config(layout="wide")
 st.title("HEY-I")
-
+now_time = datetime.now(timezone("Asia/Seoul")).strftime("%y%m%d_%H%M%S")
 if "confirm_video" in st.session_state.keys():
     if os.path.exists(st.session_state.confirm_video):
         st.subheader("면접 영상 분석 결과입니다.")
@@ -54,7 +55,7 @@ if "confirm_video" in st.session_state.keys():
             with tab1:
                 st.header("Emotion")
                 st.subheader("니 얼굴 표정 이렇다 임마 표정 좀 풀어라")
-                video_file = open("./db/vp80.webm", "rb")
+                video_file = open("./records/vp80.webm", "rb")
                 video_bytes = video_file.read()
                 st.video(video_bytes)
                 st.line_chart(result)
@@ -64,7 +65,7 @@ if "confirm_video" in st.session_state.keys():
                 st.subheader("니 자세가 이렇다 삐딱하이 에픽하이")
 
                 # pose estimation
-                pose_video = open("./db/pose.webm", "rb")
+                pose_video = open("./records/pose.webm", "rb")
                 pose_video_bytes = pose_video.read()
                 st.video(pose_video_bytes)
 

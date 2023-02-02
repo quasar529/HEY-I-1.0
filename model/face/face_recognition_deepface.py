@@ -188,7 +188,7 @@ def frame_to_video(rec_image_list, video_path):
 
     fourcc = cv2.VideoWriter_fourcc(*"vp80")
 
-    out = cv2.VideoWriter("./db/vp80.webm", fourcc, 2, (width, height))
+    out = cv2.VideoWriter("./records/vp80.webm", fourcc, 2, (width, height))
     for rec_frame in rec_image_list:
         out.write(rec_frame)
         if cv2.waitKey(1) & 0xFF == ord("q"):

@@ -170,3 +170,7 @@ cython_debug/
 
 # db
 **/db/**
+
+records/*
+*.jpg
+*.webm

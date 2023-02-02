@@ -22,7 +22,10 @@ def calculate_angle(a, b):
 
     return angle
 
-VIDEO_PATH = os.path.join('./db','output_230119_194953.webm')
+
+VIDEO_PATH = os.path.join("./db", "output_230119_194953.webm")
+
+
 def run(video_path):
     cap = cv2.VideoCapture(video_path)
     width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -30,15 +33,15 @@ def run(video_path):
     # count = cap.get(cv2.CAP_PROP_FRAME_COUNT)
     # cap.get(cv2.CAP_PROP_FPS) == 30
     fps = 60
-    cap.set(cv2.CAP_PROP_FPS,fps)
-    fourcc = cv2.VideoWriter_fourcc(*'vp80')
-    print(fps) 
+    cap.set(cv2.CAP_PROP_FPS, fps)
+    fourcc = cv2.VideoWriter_fourcc(*"vp80")
+    print(fps)
 
-    out = cv2.VideoWriter("./db/pose.webm", fourcc, fps, (width, height))
+    out = cv2.VideoWriter("./records/pose.webm", fourcc, fps, (width, height))
 
     anomaly = {"shoulder": [], "hand": []}
-    shoulder_components={"start":[],"end":[],"elapsed":[]}
-    hand_components={"time":[]}
+    shoulder_components = {"start": [], "end": [], "elapsed": []}
+    hand_components = {"time": []}
 
     # Initiate holistic model
     with mp_holistic.Holistic(
@@ -126,10 +129,9 @@ def run(video_path):
                     landmarks[mp_pose.PoseLandmark.RIGHT_WRIST].y,
                 ]
 
-
                 # Calculate shoulder angle
                 angle = calculate_angle(left_shoulder, right_shoulder)
-                if angle <= 170 :  # 기준 정해야함
+                if angle <= 170:  # 기준 정해야함
                     anomaly["shoulder"].append((target_time, datetime.now()))
                 else:
                     shoulder_seconds = (
@@ -151,9 +153,7 @@ def run(video_path):
             except:
                 pass
 
-
             cv2.imshow("Video Feed", image)
-            
 
             if cv2.waitKey(10) & 0xFF == ord("q"):
                 break
@@ -167,15 +167,14 @@ def run(video_path):
     return shoulder_components, hand_components
 
 
-def dict_to_json(d:dict):
+def dict_to_json(d: dict):
     d_df = pd.DataFrame(d)
-    d_json = d_df.to_json(orient='records')
+    d_json = d_df.to_json(orient="records")
     return d_json
-    
 
 
 if __name__ == "__main__":
-    shoulder_info, hand_info = run(VIDEO_PATH) 
-    shoulder_json,hand_json = dict_to_json(shoulder_info), dict_to_json(hand_info)
+    shoulder_info, hand_info = run(VIDEO_PATH)
+    shoulder_json, hand_json = dict_to_json(shoulder_info), dict_to_json(hand_info)
     # shoulder_response,hand_response = JSONResponse(json.loads(shoulder_json)),JSONResponse(json.loads(hand_json))
-    print(shoulder_json,hand_json)
+    print(shoulder_json, hand_json)
